@@ -22,4 +22,11 @@ public class PlanService {
 
         return new PlanResponseDto(publishPlan);
     }
+
+    public PlanResponseDto searchPlan(int plan_id){
+        PlanRepository planRepository = new PlanRepository(jdbcTemplate);
+        Plan selectPlan = planRepository.searchbyId(plan_id);
+
+        return new PlanResponseDto(selectPlan);
+    }
 }

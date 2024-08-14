@@ -4,10 +4,7 @@ import com.sparta.springscheduler.DTO.PlanRequestDto;
 import com.sparta.springscheduler.DTO.PlanResponseDto;
 import com.sparta.springscheduler.service.PlanService;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -25,5 +22,10 @@ public class PlanController {
         return planService.createPlan(planRequestDto);
     }
 
+    @GetMapping("/plan/{plan_id}")
+    public PlanResponseDto searchPlan(@PathVariable int plan_id){
+        PlanService planService = new PlanService(jdbcTemplate);
+        return planService.searchPlan(plan_id);
+    }
 
 }

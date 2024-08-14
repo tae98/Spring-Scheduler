@@ -35,4 +35,24 @@ public class PlanRepository {
 
         return plan;
     }
+
+    public Plan searchbyId(int plan_id){
+        String sql ="SELECT name, content, create_date, edit_date FROM Plan where plan_id =?";
+
+        return jdbcTemplate.query(sql,resultSet->{
+            if(resultSet.next()){
+                Plan plan = new Plan();
+                plan.setPlan_id(plan_id);
+                plan.setContent(resultSet.getString("content"));
+                plan.setName(resultSet.getString("name"));
+                plan.setCreate_date(resultSet.getTimestamp("create_date"));
+                plan.setEdit_date(resultSet.getTimestamp("edit_date"));
+                return plan;
+            }
+            else{
+                return null;
+            }
+        }, plan_id);
+    }
 }
+
