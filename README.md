@@ -21,18 +21,21 @@ Development
 | 기능          | Method | URL                    | Request| Response|
 | ----         |:----:  |:----:                  |:----:|:----:|
 | 일정 작성      | Post  |/api/schedule            |Body  | 등록정보
-| 선택한 일정 조회 | Get   |/api/schedule/{eventid}  |Param |단건 응답 정보
+| 선택한 일정 조회 | Get   |/api/schedule/{planid}  |Param |단건 응답 정보
 | 일정 목록 조회  | Get   |/api/schedule            |Body   |다건 응답 정보
-| 선택한 일정 수정 | Put   |/api/schedule/{eventid}  |Body  |수정 정보
-| 선택한 일정 삭제 | Delete|/api/schedule/{eventid}  |Body  |삭제 정보 
+| 선택한 일정 수정 | Put   |/api/schedule/{planid}  |Body  |수정 정보
+| 선택한 일정 삭제 | Delete|/api/schedule/{planid}  |Body  |삭제 정보 
 
 # 📊SQL
 
-    CREATE TABLE IF EVENT(
-    event_id INT KEY AUTO_INCREMENT PRIMARY KEY COMMENT 'event_id',
-    content VARCHAR(500) NOT NULL COMMENT '내용',
-    name VARCHAR(100) NOT NULL COMMENT '관리자명',
-    password VARCHAR(100) NOT NULL COMMENT '비밀번호',
-    create_date DATE NOT NULL COMMENT '생성일',
-    edit_date DATE NOT NULL COMMENT '수정일'
+    create table if not exists Plan
+    (
+    plan_id     int auto_increment comment 'plan_id' primary key,
+    content     varchar(500)                        not null comment '내용',
+    name        varchar(100)                        not null comment '관리자명',
+    password    varchar(100)                        not null comment '비밀번호',
+    create_date timestamp default CURRENT_TIMESTAMP null comment '생성일',
+    edit_date   timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP comment '수정일'
     );
+
+
