@@ -5,12 +5,14 @@ import com.sparta.springscheduler.entity.Plan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Repository
 public class PlanRepository {
     //jdbcTemplate 선언 & 생성자
     private final JdbcTemplate jdbcTemplate;
@@ -76,6 +78,12 @@ public class PlanRepository {
     public void editById(Integer planId, PlanRequestDto planRequestDto) {
         String sql = "UPDATE Plan SET content = ?, name =? WHERE password = ? and plan_id = ?";
         jdbcTemplate.update(sql, planRequestDto.getContent(), planRequestDto.getName(), planRequestDto.getPassword(), planId);
+    }
+
+    //plan_id 를 받아와 sql database 에서 일치하는 plan_id & password 의 데이터를 삭제
+    public void removeById(int planId, PlanRequestDto planRequestDto) {
+        String sql = "DELETE FROM Plan WHERE password = ? and plan_id = ?";
+        jdbcTemplate.update(sql, planRequestDto.getPassword(), planId);
     }
 }
 

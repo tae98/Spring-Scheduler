@@ -5,10 +5,11 @@ import com.sparta.springscheduler.DTO.PlanResponseDto;
 import com.sparta.springscheduler.entity.Plan;
 import com.sparta.springscheduler.repository.PlanRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class PlanService {
     //jdbcTemplate 선언 & 생성자
     private final JdbcTemplate jdbcTemplate;
@@ -49,6 +50,18 @@ public class PlanService {
         }else{
             planRepository.editById(plan_id, planRequestDto);
             return plan_id;
+        }
+    }
+
+    //lan_id 가 존재하지않을 시 exception 발생, 존재할 시 repository 에 plan_id 와 json 형태 password 데이터 전달 하여 removeById 실행
+    public Integer removePlan(int planId, PlanRequestDto planRequestDto) {
+        PlanRepository planRepository = new PlanRepository(jdbcTemplate);
+        Plan removePlan = planRepository.searchbyId(planId);
+        if(removePlan == null){
+            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다");
+        }else{
+            planRepository.removeById(planId, planRequestDto);
+            return planId;
         }
     }
 }

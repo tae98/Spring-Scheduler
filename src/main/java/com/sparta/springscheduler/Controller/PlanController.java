@@ -18,6 +18,7 @@ public class PlanController {
     public PlanController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     //Post Method body 를 받아 새로운 일정 생성
     @PostMapping("/plan")
     public PlanResponseDto publishPlan(@RequestBody PlanRequestDto planRequestDto){
@@ -45,6 +46,11 @@ public class PlanController {
         return planService.editPlan(plan_id, planRequestDto);
     }
 
-
+    //Path variable 로 plan_id를 받고 Json 형태로 비밀번호를 받아 비밀번호가 일치할시 삭제
+    @DeleteMapping("/plan/{plan_id}")
+    public Integer removePlan(@PathVariable int plan_id, @RequestBody PlanRequestDto planRequestDto){
+        PlanService planService = new PlanService(jdbcTemplate);
+        return planService.removePlan(plan_id, planRequestDto);
+    }
 
 }
