@@ -1,6 +1,6 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Spring%20Scheuler)
 
-# 🚀STACK
+# 🚀 STACK
 
 Environment
 
@@ -16,7 +16,7 @@ Development
 ![SQL](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Gradle](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
 
-# ⚒️API Table & Script
+# ⚒️ API Table & Script
 ## [🖇️ Postman API Script](https://documenter.getpostman.com/view/37620136/2sA3s7hobk)
 
 | 기능          | Method | URL                    | Request| Response|
@@ -27,10 +27,10 @@ Development
 | 선택한 일정 수정 | Put   |/api/plan/{plan_id}  |Body  |수정 정보
 | 선택한 일정 삭제 | Delete|/api/plan/{plan_id}  |Body  |삭제 정보 
 
-# 📚ERD 
+# 📚 ERD 
 ![Screenshot 2024-08-15 at 5 41 32 PM](https://github.com/user-attachments/assets/5d92f8d7-9c96-4c36-b1ad-64389e14fbd8)
 
-# 📊SQL 
+# 📊 SQL 
 
     create table if not exists Plan
     (
@@ -44,7 +44,7 @@ Development
 
 
 
-# Diagram
+# 📈 Diagram
 ![PlanRequestDtoimg](https://github.com/user-attachments/assets/b9896387-60c8-493b-bf60-e7bcbd7edef2)
 
 # 🌲 Repository 
