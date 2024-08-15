@@ -1,5 +1,6 @@
 package com.sparta.springscheduler.repository;
 
+import com.sparta.springscheduler.DTO.PlanRequestDto;
 import com.sparta.springscheduler.entity.Plan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -69,6 +70,12 @@ public class PlanRepository {
                 plan.setEdit_date(resultSet.getTimestamp("edit_date"));
                 return plan;
         }, editDate, name);
+    }
+
+    //plan_id를 받아와 sql 문으로 비밀번호 와 plan_id 가 일치할시 내용과 관리자명을 수정
+    public void editById(Integer planId, PlanRequestDto planRequestDto) {
+        String sql = "UPDATE Plan SET content = ?, name =? WHERE password = ? and plan_id = ?";
+        jdbcTemplate.update(sql, planRequestDto.getContent(), planRequestDto.getName(), planRequestDto.getPassword(), planId);
     }
 }
 

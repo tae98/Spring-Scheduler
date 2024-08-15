@@ -38,4 +38,17 @@ public class PlanService {
         PlanRepository planRepository = new PlanRepository(jdbcTemplate);
         return planRepository.findByDateorName(planRequestDto.getEdit_date(), planRequestDto.getName());
     }
+
+    //plan_id 가 존재하지않을 시 exception 발생, 존재할 시 repository 에 plan_id 와 json 형태 데이터 전송 하여 editById 실행
+    public Integer editPlan(Integer plan_id, PlanRequestDto planRequestDto) {
+        PlanRepository planRepository = new PlanRepository(jdbcTemplate);
+        Plan editPlan = planRepository.searchbyId(plan_id);
+
+        if(editPlan == null){
+            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다");
+        }else{
+            planRepository.editById(plan_id, planRequestDto);
+            return plan_id;
+        }
+    }
 }

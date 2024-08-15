@@ -38,5 +38,13 @@ public class PlanController {
         return planService.getPlan(planRequestDto);
     }
 
+    //Path variable 로 plan_id를 받고 Json 형태로 내용, 이름 비밀번호를 받아 비밀번호가 일치할시 수정
+    @PutMapping("/plan/{plan_id}")
+    public Integer editPlan(@PathVariable int plan_id, @RequestBody PlanRequestDto planRequestDto){
+        PlanService planService = new PlanService(jdbcTemplate);
+        return planService.editPlan(plan_id, planRequestDto);
+    }
+
+
 
 }
