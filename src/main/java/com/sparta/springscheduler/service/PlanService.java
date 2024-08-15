@@ -6,6 +6,9 @@ import com.sparta.springscheduler.entity.Plan;
 import com.sparta.springscheduler.repository.PlanRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
+
 public class PlanService {
     //jdbcTemplate 선언 & 생성자
     private final JdbcTemplate jdbcTemplate;
@@ -22,11 +25,17 @@ public class PlanService {
 
         return new PlanResponseDto(publishPlan);
     }
-
+    //Repository 에 plan_id 넘겨주어 searchbyId  실행
     public PlanResponseDto searchPlan(int plan_id){
         PlanRepository planRepository = new PlanRepository(jdbcTemplate);
         Plan selectPlan = planRepository.searchbyId(plan_id);
 
         return new PlanResponseDto(selectPlan);
+    }
+
+    //Repository 에 이름과 날짜를 넘겨주어 findByDate or Name 실행
+    public List<Plan> getPlan(PlanRequestDto planRequestDto) {
+        PlanRepository planRepository = new PlanRepository(jdbcTemplate);
+        return planRepository.findByDateorName(planRequestDto.getEdit_date(), planRequestDto.getName());
     }
 }

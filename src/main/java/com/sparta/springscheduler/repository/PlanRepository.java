@@ -5,9 +5,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class PlanRepository {
     //jdbcTemplate 선언 & 생성자
@@ -35,7 +36,7 @@ public class PlanRepository {
 
         return plan;
     }
-
+    //Service 로부터 plan_id값을 받아 일치하는 데이터를 sql문으로 검색
     public Plan searchbyId(int plan_id){
         String sql ="SELECT name, content, create_date, edit_date FROM Plan where plan_id =?";
 
@@ -53,6 +54,21 @@ public class PlanRepository {
                 return null;
             }
         }, plan_id);
+    }
+
+    //이름과 날짜를 service 에서 넘겨받아 sql문으로 일치하는 데이터를 검색
+    public List<Plan> findByDateorName(Timestamp editDate, String name) {
+        String sql = "SELECT plan_id, content, name, create_date, edit_date FROM Plan WHERE edit_date = ? OR name = ?";
+
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+                Plan plan = new Plan();
+                plan.setName(resultSet.getString("name"));
+                plan.setContent(resultSet.getString("content"));
+                plan.setPlan_id(resultSet.getInt("plan_id"));
+                plan.setCreate_date(resultSet.getTimestamp("create_date"));
+                plan.setEdit_date(resultSet.getTimestamp("edit_date"));
+                return plan;
+        }, editDate, name);
     }
 }
 
